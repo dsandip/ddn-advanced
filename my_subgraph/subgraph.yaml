@@ -1,0 +1,18 @@
+kind: Subgraph
+version: v2
+definition:
+  name: my_subgraph
+  generator:
+    rootPath: .
+  includePaths:
+    - metadata
+  envMapping:
+    MY_SUBGRAPH_MY_MONGO_AUTHORIZATION_HEADER:
+      fromEnv: MY_SUBGRAPH_MY_MONGO_AUTHORIZATION_HEADER
+    MY_SUBGRAPH_MY_MONGO_READ_URL:
+      fromEnv: MY_SUBGRAPH_MY_MONGO_READ_URL
+    MY_SUBGRAPH_MY_MONGO_WRITE_URL:
+      fromEnv: MY_SUBGRAPH_MY_MONGO_WRITE_URL
+  connectors:
+    - path: connector/my_mongo/connector.yaml
+      connectorLinkName: my_mongo
