@@ -1,5 +1,6 @@
 include:
   - path: my_subgraph/connector/my_mongo/compose.yaml
+  - path: my_subgraph/connector/postgres/compose.yaml
 services:
   engine:
     build:

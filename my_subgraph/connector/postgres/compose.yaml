@@ -1,0 +1,24 @@
+services:
+  my_subgraph_postgres:
+    build:
+      context: .
+      dockerfile_inline: |-
+        FROM ghcr.io/hasura/ndc-postgres:v1.1.1
+        COPY ./ /etc/connector
+    develop:
+      watch:
+        - path: ./
+          action: sync+restart
+          target: /etc/connector
+    environment:
+      CONNECTION_URI: $MY_SUBGRAPH_POSTGRES_CONNECTION_URI
+      HASURA_SERVICE_TOKEN_SECRET: $MY_SUBGRAPH_POSTGRES_HASURA_SERVICE_TOKEN_SECRET
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: $MY_SUBGRAPH_POSTGRES_OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+      OTEL_SERVICE_NAME: $MY_SUBGRAPH_POSTGRES_OTEL_SERVICE_NAME
+    extra_hosts:
+      - local.hasura.dev=host-gateway
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "7417"
+        protocol: tcp
